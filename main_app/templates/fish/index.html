@@ -9,4 +9,12 @@
 
 <h1>All the Fish</h1>
 
+<section>
+  {% for fish in fishes %}
+  <div>
+    <h2>{{ fish.name }}</h2>
+  </div>
+  {% endfor %}
+</section>
+
 {% endblock %}

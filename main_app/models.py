@@ -13,4 +13,4 @@ class Fish(models.Model):
   color = models.CharField(max_length=20)
   price = models.IntegerField
   age = models.IntegerField
-  decorations = models.ManyToManyField(Decoration)
+  # decorations = models.ManyToManyField(Decoration)
