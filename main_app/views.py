@@ -40,3 +40,7 @@ class FishUpdate(UpdateView):
 class FishDelete(DeleteView):
   model = Fish
   success_url = '/fish/'
+
+class DecorationsCreate(CreateView):
+  model = Decoration
+  fields = '__all__'
