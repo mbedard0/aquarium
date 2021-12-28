@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 MEALS = (
   ('B', 'Breakfast'),
@@ -20,6 +21,8 @@ class Fish(models.Model):
   color = models.CharField(max_length=20)
   price = models.IntegerField()
   age = models.IntegerField()
+  def fed_for_today(self):
+    return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
   # decorations = models.ManyToManyField(Decoration)
 
   def __str__(self):
