@@ -12,7 +12,9 @@
 <section>
   {% for fish in fishes %}
   <div>
-    <h2>{{ fish.name }}</h2>
+    <a href="/fish/{{ fish.id }}">
+      <h2>{{ fish.name }}</h2>
+    </a>
   </div>
   {% endfor %}
 </section>
