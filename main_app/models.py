@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Decoration(models.Model):
@@ -14,3 +15,9 @@ class Fish(models.Model):
   price = models.IntegerField()
   age = models.IntegerField()
   # decorations = models.ManyToManyField(Decoration)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('fish_detail', kwargs={'fish_id': self.id})
