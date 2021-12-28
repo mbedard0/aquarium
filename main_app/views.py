@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Fish, Decoration
+from .forms import FeedingForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
@@ -16,12 +17,12 @@ def fish_index(request):
 
 def fish_detail(request, fish_id):
   fish = Fish.objects.get(id=fish_id)
-  return render(request, 'fish/detail.html', { 'fish': fish})
+  feeding_form = FeedingForm()
+  return render(request, 'fish/detail.html', { 'fish': fish, 'feeding_form': feeding_form })
 
 class FishCreate(CreateView):
   model = Fish
   fields = '__all__'
-  # fields = ['name', 'species', 'color', 'price', 'age']
   success_url = '/fish/'
 
 class FishUpdate(UpdateView):
