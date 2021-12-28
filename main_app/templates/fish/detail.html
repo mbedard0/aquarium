@@ -14,7 +14,7 @@
 <link 
   rel="stylesheet" 
   type="text/css" 
-  href="{% static 'css/cat-detail.css' %}"
+  href="{% static 'css/fish-detail.css' %}"
 />
 
 <script defer src="{% static 'js/fish-detail.js' %}"></script>
@@ -32,8 +32,8 @@
   <div>
     <h3>Add a Feeding</h3>
     <form
+      action="{% url 'add_feeding' fish.id %}" 
       method="post" 
-      class="subsection-content"
     >
       {% csrf_token %}
       {{ feeding_form.as_p }}

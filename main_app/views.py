@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Fish, Decoration
 from .forms import FeedingForm
@@ -19,6 +19,14 @@ def fish_detail(request, fish_id):
   fish = Fish.objects.get(id=fish_id)
   feeding_form = FeedingForm()
   return render(request, 'fish/detail.html', { 'fish': fish, 'feeding_form': feeding_form })
+
+def add_feeding(request, fish_id):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+    new_feeding = form.save(commit=False)
+    new_feeding.fish_id = fish_id
+    new_feeding.save()
+  return redirect('fish_detail', fish_id=fish_id)
 
 class FishCreate(CreateView):
   model = Fish
