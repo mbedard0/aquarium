@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Fish, Decoration
 from .forms import FeedingForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 def home(request):
@@ -41,6 +42,13 @@ class FishDelete(DeleteView):
   model = Fish
   success_url = '/fish/'
 
-class DecorationsCreate(CreateView):
+class DecorationCreate(CreateView):
   model = Decoration
   fields = '__all__'
+  success_url = '/decorations/'
+
+class DecorationList(ListView):
+  model = Decoration
+
+class DecorationDetail(DetailView):
+  model = Decoration

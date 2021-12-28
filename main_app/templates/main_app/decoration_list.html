@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>All Decorations</h1>
+</section>
+
+<section class="card-container">
+  {% for decoration in decoration_list %}
+  <div class="card" style="border-color: {{ decoration.color }}">
+    <div class="card-bg" style="background-color: {{ decoration.color }}"></div>
+    <a href="{% url 'decorations_detail' decoration.id %}">
+      <div class="card-content">
+        <h2>{{ decoration.name }}</h2>
+        <p>A {{ decoration.color }} toy</p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
