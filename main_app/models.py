@@ -5,12 +5,12 @@ class Decoration(models.Model):
   name = models.CharField(max_length=40)
   color = models.CharField(max_length=20)
   description = models.CharField(max_length=300)
-  price = models.IntegerField
+  price = models.IntegerField()
 
 class Fish(models.Model):
   name = models.CharField(max_length=40)
   species = models.CharField(max_length=40)
   color = models.CharField(max_length=20)
-  price = models.IntegerField
-  age = models.IntegerField
+  price = models.IntegerField()
+  age = models.IntegerField()
   # decorations = models.ManyToManyField(Decoration)
