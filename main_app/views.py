@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class Home(LoginView):
@@ -15,16 +16,19 @@ class Home(LoginView):
 def about(request):
   return render(request, 'about.html')
 
+@login_required(login_url='/')
 def fish_index(request):
-  fishes = Fish.objects.all()
+  fishes = Fish.objects.filter(user=request.user)
   return render(request, 'fish/index.html', { 'fishes': fishes })
 
+@login_required(login_url='/')
 def fish_detail(request, fish_id):
   fish = Fish.objects.get(id=fish_id)
   decorations_fish_doesnt_have = Decoration.objects.exclude(id__in = fish.decorations.all().values_list('id'))
   feeding_form = FeedingForm()
   return render(request, 'fish/detail.html', { 'fish': fish, 'feeding_form': feeding_form, 'decorations': decorations_fish_doesnt_have })
 
+@login_required(login_url='/')
 def add_feeding(request, fish_id):
   form = FeedingForm(request.POST)
   if form.is_valid():
