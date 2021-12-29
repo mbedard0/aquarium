@@ -8,6 +8,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class Home(LoginView):
@@ -55,35 +56,41 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'signup.html', context)
 
-class FishCreate(CreateView):
+class FishCreate(LoginRequiredMixin, CreateView):
+  login_url = '/'
   model = Fish
   fields = ['name', 'species', 'color', 'price', 'age']
   success_url = '/fish/'
 
-class FishUpdate(UpdateView):
+class FishUpdate(LoginRequiredMixin, UpdateView):
+  login_url = '/'
   model = Fish
   fields = ['color', 'price', 'age']
 
-class FishDelete(DeleteView):
+class FishDelete(LoginRequiredMixin, DeleteView):
   model = Fish
   success_url = '/fish/'
 
-class DecorationCreate(CreateView):
+class DecorationCreate(LoginRequiredMixin, CreateView):
   model = Decoration
   fields = '__all__'
   success_url = '/decorations/'
 
-class DecorationList(ListView):
+class DecorationList(LoginRequiredMixin, ListView):
+  login_url = '/'
   model = Decoration
 
-class DecorationDetail(DetailView):
+class DecorationDetail(LoginRequiredMixin, DetailView):
+  login_url = '/'
   model = Decoration
 
-class DecorationUpdate(UpdateView):
+class DecorationUpdate(LoginRequiredMixin, UpdateView):
+  login_url = '/'
   model = Decoration
   fields = ['color', 'description', 'price']
 
-class DecorationDelete(DeleteView):
+class DecorationDelete(LoginRequiredMixin, DeleteView):
+  login_url = '/'
   model = Decoration
   success_url = '/decorations/'
 
