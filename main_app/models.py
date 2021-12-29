@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 MEALS = (
   ('B', 'Breakfast'),
@@ -24,13 +25,17 @@ class Fish(models.Model):
   def fed_for_today(self):
     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
   decorations = models.ManyToManyField(Decoration)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user  
+    return super().form_valid(form)
 
   def __str__(self):
     return self.name
 
   def get_absolute_url(self):
     return reverse('fish_detail', kwargs={'fish_id': self.id})
-
 
 class Feeding(models.Model):
   date = models.DateField()
