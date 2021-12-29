@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  
+<div class="card" style="border-color: {{ decoration.color }}">
+  <div class="card-bg" style="background-color: {{ decoration.color }}"></div>
+  <div class="card-content">
+    <h2>{{ decoration.name }}</h2>
+    <p>A {{ decoration.color }} decoration</p>
+  </div>
+</div>
+<a href="{% url 'decorations_update' decoration.id %}" class="btn warn">Edit</a>
+<a href="{% url 'decorations_delete' decoration.id %}" class="btn danger">Delete</a>
+
+{% endblock %}

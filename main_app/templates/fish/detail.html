@@ -64,5 +64,52 @@
     <a href="{% url 'fish_delete' fish.id %}">Delete</a>
   </div>
 </section>
+<section class="decorations">
+  <div class="subsection-title">
+    <h2>Decorations</h2>
+  </div>
+  <h3>{{ fish.name }}'s decorations</h3>
+  <div class="subsection-content">
+    {% if fish.decorations.count %}
+      {% for decoration in fish.decorations.all %}
+        <div class="decoration-container">
+          <div 
+            class="color-block"
+            style="background-color: {{ decoration.color }}"
+          ></div>
+          <a href="{% url 'decorations_detail' decoration.id %}">
+            <p>A {{ decoration.color }} {{ decoration.name }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-decorations">{{fish.name}} doesn't have any toys 😞</p>
+    {% endif %}
+  </div>
+  <h3>Available Decorations</h3>
+  <div class="subsection-content">
+    {% if decorations.count %}
+        {% for decoration in decorations.all %}
+          <div class="decoration-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ decoration.color }}"
+            ></div>
+            <a href="{% url 'decorations_detail' decoration.id %}">
+              <p>A {{ decoration.color }} {{ decoration.name }}</p>
+            </a>
+            <form action="{% url 'assoc_decoration' fish.id decoration.id %}"  method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn submit">Give decoration</button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="all-toys">
+          {{fish.name}} already has all the available toys 🥳
+        </p>
+      {% endif %}
+  </div>
+</section>
 
 {% endblock %}

@@ -23,7 +23,7 @@ class Fish(models.Model):
   age = models.IntegerField()
   def fed_for_today(self):
     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
-  # decorations = models.ManyToManyField(Decoration)
+  decorations = models.ManyToManyField(Decoration)
 
   def __str__(self):
     return self.name

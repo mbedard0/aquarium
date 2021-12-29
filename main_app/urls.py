@@ -13,4 +13,7 @@ urlpatterns = [
   path('decorations/create/', views.DecorationCreate.as_view(), name='decorations_create'),
   path('decorations/', views.DecorationList.as_view(), name='decorations_index'),
   path('decorations/<int:pk>/', views.DecorationDetail.as_view(), name='decorations_detail'),
+  path('decorations/<int:pk>/update/', views.DecorationUpdate.as_view(), name='decorations_update'),
+  path('decorations/<int:pk>/delete/', views.DecorationDelete.as_view(), name='decorations_delete'),
+  path('fish/<int:fish_id>/assoc_decoration/<int:decoration_id>/', views.assoc_decoration, name='assoc_decoration'),
 ]

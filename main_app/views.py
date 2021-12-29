@@ -18,8 +18,9 @@ def fish_index(request):
 
 def fish_detail(request, fish_id):
   fish = Fish.objects.get(id=fish_id)
+  decorations_fish_doesnt_have = Decoration.objects.exclude(id__in = fish.decorations.all().values_list('id'))
   feeding_form = FeedingForm()
-  return render(request, 'fish/detail.html', { 'fish': fish, 'feeding_form': feeding_form })
+  return render(request, 'fish/detail.html', { 'fish': fish, 'feeding_form': feeding_form, 'decorations': decorations_fish_doesnt_have })
 
 def add_feeding(request, fish_id):
   form = FeedingForm(request.POST)
@@ -29,9 +30,13 @@ def add_feeding(request, fish_id):
     new_feeding.save()
   return redirect('fish_detail', fish_id=fish_id)
 
+def assoc_decoration(request, fish_id, decoration_id):
+  Fish.objects.get(id=fish_id).decorations.add(decoration_id)
+  return redirect('fish_detail', fish_id=fish_id)
+
 class FishCreate(CreateView):
   model = Fish
-  fields = '__all__'
+  fields = ['name', 'species', 'color', 'price', 'age']
   success_url = '/fish/'
 
 class FishUpdate(UpdateView):
@@ -52,3 +57,13 @@ class DecorationList(ListView):
 
 class DecorationDetail(DetailView):
   model = Decoration
+
+class DecorationUpdate(UpdateView):
+  model = Decoration
+  fields = ['color', 'description', 'price']
+
+class DecorationDelete(DeleteView):
+  model = Decoration
+  success_url = '/decorations/'
+
+
