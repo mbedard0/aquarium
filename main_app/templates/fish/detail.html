@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/fish-detail.css' %}"/>
 <link 
   href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
   rel="stylesheet" 
@@ -23,17 +23,27 @@
 
 {% block content %}
 
-<h1>{{ fish.name }}</h1>
 
-<section>
-  <div>
-      <h2>A {{ fish.color }} {{ fish.species }}.</h2>
+<section class="fish-container">
+  <div class="fish-details">
+    <h1>{{ fish.name }}</h1>
+    <h2>A {{ fish.color }} {{ fish.species }}.</h2>
+      <div class="fish-actions">
+        <a href="{% url 'fish_update' fish.id %}" class="btn warn">Edit</a>
+        <a href="{% url 'fish_delete' fish.id %}" class="btn danger">Delete</a>
+      </div>    
   </div>
-  <div>
+</section>
+<div class="feeding-decoration-container">
+  <section class="feeding">
+    <div class="subsection-title">  
+      <h3>Feeding</h3>
+    </div>
     <h3>Add a Feeding</h3>
     <form
       action="{% url 'add_feeding' fish.id %}" 
-      method="post" 
+      method="post"
+      class="subsection-content"
     >
     {% if fish.fed_for_today %}
       <p class="fed">{{fish.name}} has been fed all their meals for today!</p>
@@ -58,38 +68,15 @@
         {% endfor %}
       </tbody>
     </table>
-  </div>
-  <div>
-    <a href="{% url 'fish_update' fish.id %}">Edit</a>
-    <a href="{% url 'fish_delete' fish.id %}">Delete</a>
-  </div>
-</section>
-<section class="decorations">
-  <div class="subsection-title">
-    <h2>Decorations</h2>
-  </div>
-  <h3>{{ fish.name }}'s decorations</h3>
-  <div class="subsection-content">
-    {% if fish.decorations.count %}
-      {% for decoration in fish.decorations.all %}
-        <div class="decoration-container">
-          <div 
-            class="color-block"
-            style="background-color: {{ decoration.color }}"
-          ></div>
-          <a href="{% url 'decorations_detail' decoration.id %}">
-            <p>A {{ decoration.color }} {{ decoration.name }}</p>
-          </a>
-        </div>
-      {% endfor %}
-    {% else %}
-      <p class="no-decorations">{{fish.name}} doesn't have any toys 😞</p>
-    {% endif %}
-  </div>
-  <h3>Available Decorations</h3>
-  <div class="subsection-content">
-    {% if decorations.count %}
-        {% for decoration in decorations.all %}
+  </section>
+  <section class="decorations">
+    <div class="subsection-title">
+      <h2>Decorations</h2>
+    </div>
+    <h3>{{ fish.name }}'s decorations</h3>
+    <div class="subsection-content">
+      {% if fish.decorations.count %}
+        {% for decoration in fish.decorations.all %}
           <div class="decoration-container">
             <div 
               class="color-block"
@@ -98,18 +85,37 @@
             <a href="{% url 'decorations_detail' decoration.id %}">
               <p>A {{ decoration.color }} {{ decoration.name }}</p>
             </a>
-            <form action="{% url 'assoc_decoration' fish.id decoration.id %}"  method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn submit">Give decoration</button>
-            </form>
           </div>
         {% endfor %}
       {% else %}
-        <p class="all-toys">
-          {{fish.name}} already has all the available toys 🥳
-        </p>
+        <p class="no-decorations">{{fish.name}} doesn't have any decorations 😞</p>
       {% endif %}
-  </div>
-</section>
+    </div>
+    <h3>Available Decorations</h3>
+    <div class="subsection-content">
+      {% if decorations.count %}
+          {% for decoration in decorations.all %}
+            <div class="decoration-container">
+              <div 
+                class="color-block"
+                style="background-color: {{ decoration.color }}"
+              ></div>
+              <a href="{% url 'decorations_detail' decoration.id %}">
+                <p>A {{ decoration.color }} {{ decoration.name }}</p>
+              </a>
+              <form action="{% url 'assoc_decoration' fish.id decoration.id %}"  method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn submit">Give decoration</button>
+              </form>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="all-decorations">
+            {{fish.name}} already has all the available decorations 🥳
+          </p>
+        {% endif %}
+      </div>
+  </section>
+</div>
 
 {% endblock %}

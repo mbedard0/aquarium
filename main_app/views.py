@@ -93,5 +93,3 @@ class DecorationDelete(LoginRequiredMixin, DeleteView):
   login_url = '/'
   model = Decoration
   success_url = '/decorations/'
-
-

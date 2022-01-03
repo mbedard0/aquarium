@@ -11,6 +11,10 @@
   {% endblock %}
 </head>
 <body>
+  <header>
+    <div class="header-logo-container">
+      Aquarium
+    </div>
   <nav>
     <ul>
       {% if user.is_authenticated %}
@@ -26,6 +30,7 @@
       {% endif %}
     </ul>
   </nav>
+  </header>
   <main>
     {% block content %}
     {% endblock %}
