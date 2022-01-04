@@ -6,6 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Press+Start+2P&family=Roboto:wght@300&family=Source+Sans+3:wght@300;400;600&family=Spline+Sans:wght@300&display=swap" rel="stylesheet">
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    href="{% static 'images/fishbowl.svg' %}"
+  >
   <title>Aquarium</title>
   {% block head %}
   {% endblock %}
@@ -13,7 +21,13 @@
 <body>
   <header>
     <div class="header-logo-container">
-      Aquarium
+      <a href="/">
+        <img 
+          src="{% static 'images/fishbowl.svg' %}"
+          alt="Aquarium logo"
+          class="logo-header-image"
+        > Aquarium
+      </a>
     </div>
   <nav>
     <ul>
