@@ -59,7 +59,10 @@ class FishCreate(LoginRequiredMixin, CreateView):
   login_url = '/'
   model = Fish
   fields = ['name', 'species', 'color', 'price', 'age']
-  success_url = '/fish/'
+
+  def form_valid(self, form):
+      form.instance.user = self.request.user
+      return super().form_valid(form)
 
 class FishUpdate(LoginRequiredMixin, UpdateView):
   login_url = '/'
