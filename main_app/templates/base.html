@@ -37,7 +37,9 @@
         <li><a href="{% url 'decorations_index' %}">All Decorations</a></li>
         <li><a href="{% url 'fish_create' %}">Add a Fish</a></li>
         <li><a href="{% url 'decorations_create' %}">Add a Decoration</a></li>
+        <li><a href="{% url 'logout' %}">Log out</a></li>
       {% else %}
+        <li><a href="/">Home</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="{% url 'home' %}">Login</a></li>
         <li><a href="{% url 'signup' %}">Sign Up</a></li>

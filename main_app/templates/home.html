@@ -6,18 +6,23 @@
 {% endblock %}
 
 {% block content %}
-
-<h1>Welcome to your aquarium🐠🐟🐡</h1>
-{% if not user.is_authenticated %}
-<section>
-  <form action="{% url 'home' %}" method="post" class="login">
-    <h1>Login</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ next }}">
-    <button type="submit" class="btn submit">Login</button>
-  </form>
-</section>
+<div>
+  <img 
+    src="{% static 'images/fishbowl.svg' %}"
+    alt="Aquarium logo"
+  >
+  <h1>Welcome to your aquarium🐠🐟🐡</h1>
+  {% if not user.is_authenticated %}
+  <section>
+    <form action="{% url 'home' %}" method="post" class="login">
+      <h1>Login</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn submit">Login</button>
+    </form>
+  </section>
+</div>
 {% endif %}
 
 {% endblock %}
