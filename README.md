@@ -35,3 +35,8 @@ Keep records of your fish, their feedings, and their favorite toys here.
 </ul>
 
 <h2>Next Steps</h2>
+
+<ul>
+  <li>Improve CSS</li>
+  <li>Implement image upload functionality</li>
+</ul>
